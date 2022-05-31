@@ -6,14 +6,13 @@ import pygame
 from Astr import main as Astr
 
 WIDTH = 800
-WIN = pygame.display.set_mode((WIDTH, WIDTH))
 
 st.title( 'Path Finding Visualizer')
 st.image('maze1.jpg')
 #st.subheader('Tag Line')
 
 
-
+Astr(WIDTH)
 def overview():
     st.header('Path Finding Algorithms')
     st.markdown('Path finding algorithms build on top of graph search algorithms and explore routes between nodes, starting at one node and traversing through relationships until the destination has been reached. These algorithms find the cheapest path in terms of the number of hops or weight.', unsafe_allow_html=False)
@@ -36,7 +35,7 @@ def AlgoOptions():
     st.header('1. A Star Algorithm')
     astr = st.button('Visualize A Star')
     if(astr):
-        Astr(WIN, WIDTH)
+        Astr(WIDTH)
     st.header('2. Dijkstra Algorithm')
     dijkstra = st.button('Visualize Dijkstra ')
     st.header('3. Swarm Algorithm')
