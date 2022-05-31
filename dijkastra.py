@@ -31,7 +31,8 @@ class Box:
         self.prior = None
 
     def draw(self, win, color):
-        pygame.draw.rect(win, color, (self.x * box_width, self.y * box_height, box_width-2, box_height-2))
+        pygame.draw.rect(win, color, (self.x * box_width,
+                         self.y * box_height, box_width-2, box_height-2))
 
     def set_neighbours(self):
         if self.x > 0:
