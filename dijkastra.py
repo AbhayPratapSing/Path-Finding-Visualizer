@@ -2,20 +2,18 @@ from tkinter import messagebox, Tk
 import pygame
 import sys
 
-window_width = 800
-window_height = 800
 
-window = pygame.display.set_mode((window_width, window_height))
 
-columns = 50
-rows = 50
+# window_width = 800
+# window_height = 800
 
-box_width = window_width // columns
-box_height = window_height // rows
+# window = pygame.display.set_mode((window_width, window_height))
 
-grid = []
-queue = []
-path = []
+# columns = 50
+# rows = 50
+
+# box_width = window_width // columns
+# box_height = window_height // rows
 
 
 class Box:
@@ -30,11 +28,11 @@ class Box:
         self.neighbours = []
         self.prior = None
 
-    def draw(self, win, color):
+    def draw(self, win, color, box_width = 16, box_height = 16):
         pygame.draw.rect(win, color, (self.x * box_width,
                          self.y * box_height, box_width-2, box_height-2))
 
-    def set_neighbours(self):
+    def set_neighbours(self, columns = 50, rows = 50, grid=[]):
         if self.x > 0:
             self.neighbours.append(grid[self.x - 1][self.y])
         if self.x < columns - 1:
@@ -46,24 +44,33 @@ class Box:
 
 
 # Create Grid
-for i in range(columns):
-    arr = []
-    for j in range(rows):
-        arr.append(Box(i, j))
-    grid.append(arr)
-
-# Set Neighbours
-for i in range(columns):
-    for j in range(rows):
-        grid[i][j].set_neighbours()
-
-start_box = grid[0][0]
-start_box.start = True
-start_box.visited = True
-queue.append(start_box)
 
 
-def main():
+def create_grid(rows = 50, columns= 50):
+    grid = []
+    queue = []
+    for i in range(columns):
+        arr = []
+        for j in range(rows):
+            arr.append(Box(i, j))
+        grid.append(arr)
+
+    # Set Neighbours
+    for i in range(columns):
+        for j in range(rows):
+            grid[i][j].set_neighbours(grid=grid)
+
+    start_box = grid[0][0]
+    start_box.start = True
+    start_box.visited = True
+    queue.append(start_box)
+
+    return grid, queue, start_box
+
+def main(grid=None, box_width = 16, box_height = 16,window_height= 800, window_width=800,columns = 50, rows = 50 ):
+    window = pygame.display.set_mode((window_width, window_height))
+    grid, queue, start_box = create_grid()
+    path = []
     begin_search = False
     target_box_set = False
     searching = True
@@ -140,4 +147,4 @@ def main():
         pygame.display.flip()
 
 
-main()
+# main()

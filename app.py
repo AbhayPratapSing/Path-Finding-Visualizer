@@ -4,6 +4,8 @@ from click import style
 import streamlit as st
 import pygame
 from Astr import main as Astr
+from dijkastra import main as run_dijkastra
+from DFSalgo import main as run_DFS
 
 WIDTH = 800
 
@@ -38,12 +40,16 @@ def AlgoOptions():
         Astr(WIDTH)
     st.header('2. Dijkstra Algorithm')
     dijkstra = st.button('Visualize Dijkstra ')
+    if dijkstra:
+        run_dijkastra()
     st.header('3. Swarm Algorithm')
     Swarm = st.button('Visualize Swarm ')
     st.header('4. Breadth-first Search')
     bfs = st.button('Visualize BFS ')
     st.header('5. Depth-first Search')
     dfs = st.button('Visualize DFS ')
+    if dfs:
+        run_DFS()
 
 def View_Algorithm():
     st.header('1. A Star Algorithm')
